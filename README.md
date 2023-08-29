@@ -11,33 +11,36 @@ Learn more about mercadolivre OAuth schema [here](http://developers.mercadolivre
 ## Configuration
 
 The MercadoLivre authentication strategy authenticates users using a MercadoLivre
-account and OAuth 2.0 tokens.  The strategy requires a `verify` callback, which
+account and OAuth 2.0 tokens. The strategy requires a `verify` callback, which
 accepts these credentials and calls `done` providing a user, as well as
 `options` specifying a client ID, client secret, and callback URL.
 
 You can obtain the client ID and secret by creating a mercadolivre app [here](http://applications.mercadolivre.com.ar/list).
 
 ```javascript
-var mercadolivreStrategy = require('passport-mercadolivre').Strategy;
+const mercadolivreStrategy = require("passport-mercadolivre").Strategy
 
-passport.use(new mercadolivreStrategy({
-    clientID: 'YOUR_CLIENT_ID',
-    clientSecret: 'YOUR_CLIENT_SECRET',
-    callbackURL: 'http://www.example.com/auth/mercadolivre/callback',
-  },
-  function (accessToken, refreshToken, profile, done) {
-    // + store/retrieve user from database, together with access token and refresh token
-    return done(null, profile);
-  }
-));
+passport.use(
+  new mercadolivreStrategy(
+    {
+      clientID: "YOUR_CLIENT_ID",
+      clientSecret: "YOUR_CLIENT_SECRET",
+      callbackURL: "http://www.example.com/auth/mercadolivre/callback",
+    },
+    function (accessToken, refreshToken, profile, done) {
+      // + store/retrieve user from database, together with access token and refresh token
+      return done(null, profile)
+    }
+  )
+)
 
 passport.serializeUser(function (user, done) {
-  done(null, user);
-});
+  done(null, user)
+})
 
 passport.deserializeUser(function (user, done) {
-  done(null, user);
-});
+  done(null, user)
+})
 ```
 
 ## Usage
@@ -49,37 +52,28 @@ For example, as route middleware in an [Express](http://expressjs.com/)
 application:
 
 ```javascript
-app.get('/auth/mercadolivre',
-  passport.authorize('mercadolivre'));
+app.get("/auth/mercadolivre", passport.authorize("mercadolivre"))
 
-app.get('/auth/mercadolivre/callback',
-  passport.authorize('mercadolivre', { failureRedirect: '/login' }),
-  function(req, res) {
+app.get(
+  "/auth/mercadolivre/callback",
+  passport.authorize("mercadolivre", { failureRedirect: "/login" }),
+  function (req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/');
-  });
-
-app.get('/', ensureAuthenticated,
-  function(req, res) {
-    res.send("Logged in user: " + req.user.nickname);
+    res.redirect("/")
   }
-);
+)
+
+app.get("/", ensureAuthenticated, function (req, res) {
+  res.send("Logged in user: " + req.user.nickname)
+})
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    return next();
-  };
-  res.redirect('/auth/mercadolivre');
-};
+    return next()
+  }
+  res.redirect("/auth/mercadolivre")
+}
 ```
-
-The properties available in the `user` object are:
-- provider _--> mercadolivre_
-- nickname
-- first_name
-- last_name
-- email
-- accessToken
 
 ## License
 
