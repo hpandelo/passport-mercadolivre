@@ -18,7 +18,7 @@ accepts these credentials and calls `done` providing a user, as well as
 You can obtain the client ID and secret by creating a mercadolivre app [here](http://applications.mercadolivre.com.ar/list).
 
 ```javascript
-const mercadolivreStrategy = require("passport-mercadolivre").Strategy
+import { MercadoLivreStrategy, type MercadoLivreVerifyFunction } from 'passport-mercadolivre'
 
 passport.use(
   new mercadolivreStrategy(
@@ -27,19 +27,29 @@ passport.use(
       clientSecret: "YOUR_CLIENT_SECRET",
       callbackURL: "http://www.example.com/auth/mercadolivre/callback",
     },
-    function (accessToken, refreshToken, profile, done) {
+    (accessToken, refreshToken, profile, done) => {
       // + store/retrieve user from database, together with access token and refresh token
+
+      // the callback function (done) will inject the profile in req.user
       return done(null, profile)
+
+      // TIP: If you need the accessToken, you can use like this:
+      // return done(null, { profile, accessToken })
+      // In this case, the accessToken will be in req.user.accessToken and the data in req.user.profile
     }
   )
 )
 
-passport.serializeUser(function (user, done) {
-  done(null, user)
+// The value passed to `done` here is stored on the session.
+// We save the full user object in the session.
+passport.serializeUser((user, done) => {
+  done(null, JSON.stringify(user))
 })
 
-passport.deserializeUser(function (user, done) {
-  done(null, user)
+// The value returned from `serializeUser` is passed in from the session here,
+// to get the user. We save the full user object in the session.
+passport.deserializeUser((user: string, done) => {
+  done(null, JSON.parse(user))
 })
 ```
 
@@ -52,27 +62,31 @@ For example, as route middleware in an [Express](http://expressjs.com/)
 application:
 
 ```javascript
+// Use passport.authorize auth method
 app.get("/auth/mercadolivre", passport.authorize("mercadolivre"))
 
+// Use passport.authenticate on Callback
 app.get(
   "/auth/mercadolivre/callback",
-  passport.authorize("mercadolivre", { failureRedirect: "/login" }),
-  function (req, res) {
-    // Successful authentication, redirect home.
+  passport.authenticate('mercadolivre', { session: true }),
+  (req, res) => {
+    // Successful authentication, redirect home or do what do you need
     res.redirect("/")
   }
 )
 
-app.get("/", ensureAuthenticated, function (req, res) {
-  res.send("Logged in user: " + req.user.nickname)
-})
-
-function ensureAuthenticated(req, res, next) {
+// req.isAuthenticated() returns true if the request is authenticated
+const ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next()
   }
   res.redirect("/auth/mercadolivre")
 }
+
+// User data is available at req.user object
+app.get("/", ensureAuthenticated, (req, res) => {
+  res.send("Logged in user: " + req.user.nickname)
+})
 ```
 
 ## License
