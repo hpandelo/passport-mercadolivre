@@ -81,10 +81,6 @@ The properties available in the `user` object are:
 - email
 - accessToken
 
-But you can get more information (a lot more!) accessing the raw user profile as provided by mercadolivre:
-- \_raw  _--> raw server response_
-- \_json _--> JSON object with server response_
-
 ## License
 
 [The MIT License](http://opensource.org/licenses/MIT)
@@ -92,4 +88,4 @@ But you can get more information (a lot more!) accessing the raw user profile as
 ## Thanks
 
 Thanks to https://github.com/mjpearson/passport-wordpress for the README and file structure.
-Thanks to https://github.com/sdurandeu/passport-mercadolibre for the MLA structure that I forked to create this one to MLB
+Thanks to https://github.com/sdurandeu/passport-mercadolibre for the MLA structure that I forked to inpire creating this one to MLB
