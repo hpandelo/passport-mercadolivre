@@ -1,0 +1,9 @@
+{
+  "include": ["./src/**/*.ts"],
+  "compilerOptions": {
+    "outDir": "lib",
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true
+  }
+}

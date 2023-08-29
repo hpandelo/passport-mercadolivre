@@ -1,29 +1,29 @@
-# Passport-Mercadolibre
+# Passport-MercadoLivre
 
-[Passport](https://github.com/jaredhanson/passport) strategy for authenticating with [MercadoLibre](http://www.mercadolibre.com) using the OAuth 2.0 API.
+[Passport](https://github.com/jaredhanson/passport) strategy for authenticating with [mercadolivre](http://www.mercadolivre.com) using the OAuth 2.0 API.
 
-Learn more about MercadoLibre OAuth schema [here](http://developers.mercadolibre.com/server-side/).
+Learn more about mercadolivre OAuth schema [here](http://developers.mercadolivre.com/server-side/).
 
 ## Installation
 
-    $ npm install passport-mercadolibre
+    $ npm install passport-mercadolivre
 
 ## Configuration
 
-The Mercadolibre authentication strategy authenticates users using a Mercadolibre
+The MercadoLivre authentication strategy authenticates users using a MercadoLivre
 account and OAuth 2.0 tokens.  The strategy requires a `verify` callback, which
 accepts these credentials and calls `done` providing a user, as well as
 `options` specifying a client ID, client secret, and callback URL.
 
-You can obtain the client ID and secret by creating a MercadoLibre app [here](http://applications.mercadolibre.com.ar/list).
+You can obtain the client ID and secret by creating a mercadolivre app [here](http://applications.mercadolivre.com.ar/list).
 
 ```javascript
-var MercadoLibreStrategy = require('passport-mercadolibre').Strategy;
+var mercadolivreStrategy = require('passport-mercadolivre').Strategy;
 
-passport.use(new MercadoLibreStrategy({
+passport.use(new mercadolivreStrategy({
     clientID: 'YOUR_CLIENT_ID',
     clientSecret: 'YOUR_CLIENT_SECRET',
-    callbackURL: 'http://www.example.com/auth/mercadolibre/callback',
+    callbackURL: 'http://www.example.com/auth/mercadolivre/callback',
   },
   function (accessToken, refreshToken, profile, done) {
     // + store/retrieve user from database, together with access token and refresh token
@@ -42,18 +42,18 @@ passport.deserializeUser(function (user, done) {
 
 ## Usage
 
-Use `passport.authorize()`, specifying the `'mercadolibre'` strategy, to
+Use `passport.authorize()`, specifying the `'mercadolivre'` strategy, to
 authenticate requests.
 
 For example, as route middleware in an [Express](http://expressjs.com/)
 application:
 
 ```javascript
-app.get('/auth/mercadolibre',
-  passport.authorize('mercadolibre'));
+app.get('/auth/mercadolivre',
+  passport.authorize('mercadolivre'));
 
-app.get('/auth/mercadolibre/callback',
-  passport.authorize('mercadolibre', { failureRedirect: '/login' }),
+app.get('/auth/mercadolivre/callback',
+  passport.authorize('mercadolivre', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
@@ -69,19 +69,19 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   };
-  res.redirect('/auth/mercadolibre');
+  res.redirect('/auth/mercadolivre');
 };
 ```
 
 The properties available in the `user` object are:
-- provider _--> mercadolibre_
+- provider _--> mercadolivre_
 - nickname
 - first_name
 - last_name
 - email
 - accessToken
 
-But you can get more information (a lot more!) accessing the raw user profile as provided by MercadoLibre:
+But you can get more information (a lot more!) accessing the raw user profile as provided by mercadolivre:
 - \_raw  _--> raw server response_
 - \_json _--> JSON object with server response_
 
@@ -92,3 +92,4 @@ But you can get more information (a lot more!) accessing the raw user profile as
 ## Thanks
 
 Thanks to https://github.com/mjpearson/passport-wordpress for the README and file structure.
+Thanks to https://github.com/sdurandeu/passport-mercadolibre for the MLA structure that I forked to create this one to MLB

@@ -1,27 +1,40 @@
 {
-  "name": "passport-mercadolibre",
-  "version": "0.0.2",
-  "description": "MercadoLibre OAuth2 strategy for Passport.",
+  "name": "passport-mercadolivre",
+  "version": "1.1.2",
+  "description": "MercadoLivre OAuth2 strategy for Passport.",
   "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "npx tsc"
+  },
   "dependencies": {
-    "pkginfo": "0.2.x",
-    "passport-oauth": "~0.1.1"
+    "axios": "^1.4.0",
+    "passport": "^0.6.0",
+    "passport-oauth2": "^1.7.0",
+    "pkginfo": "^0.4.1"
+  },
+  "devDependencies": {
+    "@types/passport-oauth2": "^1.4.12",
+    "typescript": "^5.2.2"
   },
   "bugs": {
-    "url": "https://github.com/sdurandeu/passport-mercadolibre"
+    "url": "https://github.com/hpandelo/passport-mercadolivre/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sdurandeu/passport-mercadolibre"
+    "url": "https://github.com/hpandelo/passport-mercadolivre"
   },
   "keywords": [
     "passport",
     "mercadolibre",
+    "mercadolivre",
+    "MLB",
     "auth",
     "authn",
     "authentication",
+    "oauth",
     "identity"
   ],
-  "author": "Sebastian Durandeu <sebastiandurandeu@gmail.com>",
+  "author": "Helcio Pandelo <hmacedo2007@gmail.com>",
   "license": "MIT"
 }
