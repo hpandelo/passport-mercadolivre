@@ -15,4 +15,3 @@ export declare class MercadoLivreStrategy extends OAuth2Strategy {
     constructor(options: MercadoLivreOptions, verify: VerifyFunction);
     userProfile(accessToken: string, done: (err?: Error | null, profile?: any) => void): Promise<void>;
 }
-//# sourceMappingURL=mercado-livre.strategy.d.ts.map
