@@ -119,4 +119,3 @@ export interface MLUser {
 }
 export type TestUser = Partial<MLUser>;
 export {};
-//# sourceMappingURL=ml-types-user.interface.d.ts.map

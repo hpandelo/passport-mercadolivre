@@ -88,4 +88,4 @@ The properties available in the `user` object are:
 ## Thanks
 
 Thanks to https://github.com/mjpearson/passport-wordpress for the README and file structure.
-Thanks to https://github.com/sdurandeu/passport-mercadolibre for the MLA structure that I forked to inpire creating this one to MLB
+Thanks to https://github.com/sdurandeu/passport-mercadolibre for the MLA structure that I forked to inspire creating this one to MLB
